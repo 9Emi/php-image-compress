@@ -38,7 +38,7 @@
       <section id="image-select">
           <div class="container"><!-- start container -->
             <div class="wrapper"><!-- start wrapper -->
-                <form action='./php_image_script/application.php' method="POST" enctype="multipart/form-data" id="my-form"><!-- start select image and ratio form -->
+                <form action='./application/application.php' method="POST" enctype="multipart/form-data" id="my-form"><!-- start select image and ratio form -->
                     <!-- start select image from device -->
                     <label class="title">Select Image From File:</label><!-- label for input field -->
                       
@@ -49,26 +49,19 @@
                       <label class="title">Select Compression Ratio:</label><!-- label for input field -->
                       <select name="ratio" class="form-control mb-4">
                           <!-- start compression values -->
-                          <option value="80">80%</option>
-                          <option value="75">75%</option>
-                          <option value="70">70%</option>
-                          <option value="65">65%</option>
-                          <option value="60">60%</option>
-                          <option value="55">55%</option>
-                          <option value="50">50%</option>
-                          <option value="45">45%</option>
-                          <option value="40">40%</option>
-                          <option value="35">35%</option>
-                          <option value="30">30%</option>
+                            <option value="90">90%</option>
+                            <option value="80">80%</option>
+                            <option value="70">70%</option>
+                            <option value="60">60%</option>
+                            <option value="50">50%</option>
+                            <option value="40">40%</option>
+                            <option value="30">30%</option>
                           <!-- end compression values -->
                       </select>
                       <!-- end select compression ratio -->
                       
                       <div class="text-center">
                           <input type="submit" class="btn" value="Compress Now"/><!-- proceed button -->
-                          <div class="mt-3">
-                            <strong>Note:</strong> After you are redirected to the image just right click and save as... image or drag it to your computer.
-                          </div>
                       </div>
       
                   </form><!-- end select image and ratio form -->  
@@ -80,6 +73,5 @@
       <!-- start adding js files -->
       <script src="js/jquery-3.2.0.min.js"></script><!-- jQuery JS -->
       <script src="js/bootstrap.min.js"></script><!-- Bootstrap JS -->
-      <script src="js/mainscript.js"></script><!-- Loader JS -->
   </body>
 </html>
