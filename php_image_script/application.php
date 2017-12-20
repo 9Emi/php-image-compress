@@ -18,7 +18,7 @@ class IMAGEPROCESS {
     private static $Size = 10000000;    // Static Max Size
 
     /** Static Array of Images Supported Extensions **/
-    private static $ExtList = ['png','PNG','jpg','JPG','jpeg','JPEG'];
+    private static $ExtList = ['png','PNG','jpg','JPG','jpeg','JPEG', 'gif', 'GIF'];
 
     /** Construct Method (Initialize) **/
     public function __construct($REQUEST) {
@@ -37,10 +37,22 @@ class IMAGEPROCESS {
     }
 
     /** Process Image Method **/
-    private function ProcessImage($ImageToBeProcessed) {
-        header('Content-Type: image/jpeg');                 // Set header type to Image
-        imagejpeg($ImageToBeProcessed, null, $this->Ratio); // Compress Image And Return It
-        imagedestroy($ImageToBeProcessed);                  // Unset The Image From Memory (RAM)
+    private function ProcessImage($ImageToBeProcessed, $ImageType) {
+        if ($ImageType == self::$ExtList[0]):                 
+            header('Content-Disposition: Attachment;filename=compressed-img.png'); // force image download
+            header('Content-type: image/png');                  // Set header type to Image
+            imagepng($ImageToBeProcessed, null, 4);             // Compress Image And Return It
+            imagedestroy($ImageToBeProcessed);                  // Unset The Image From Memory (RAM)
+        elseif ($ImageType == self::$ExtList[2] || $ImageType == self::$ExtList[4]):
+            header('Content-Disposition: Attachment;filename=compressed-img.jpg'); // force image download
+            header('Content-Type: image/jpeg');                 // Set header type to Image
+            imagejpeg($ImageToBeProcessed, null, $this->Ratio); // Compress Image And Return It
+            imagedestroy($ImageToBeProcessed);                  // Unset The Image From Memory (RAM)
+        else:
+            echo 'Application couldn\'t process image ';        // Echo Error Message
+            echo '<a href="../index.php"><button>Click Here To Back</button></a>';
+            return false;
+        endif;
     }
 
     /** Validate Image Method **/
@@ -59,10 +71,10 @@ class IMAGEPROCESS {
                 $ReadyImg;                                                  // Declare Ready Image
                 if ($ImgType['mime'] == 'image/jpeg'):                      // if JPEG
                     $ReadyImg = imagecreatefromjpeg($this->ImgFile);        // Make From JPEG
-                    $this->ProcessImage($ReadyImg);                         // Call Process Image Method
+                    $this->ProcessImage($ReadyImg, 'jpeg');                 // Call Process Image Method
                 elseif ($ImgType['mime'] == 'image/png'):                   // if PNG
                     $ReadyImg = imagecreatefrompng($this->ImgFile);         // Make From PNG
-                    $this->ProcessImage($ReadyImg);                         // Call Process Image Method
+                    $this->ProcessImage($ReadyImg, 'png');                  // Call Process Image Method
                 else:
                     echo 'Something Went Error Please Try Again! ';         // Echo Error Message
                     echo '<a href="../index.php"><button>Click Here To Back</button></a>';
